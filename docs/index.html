@@ -1,356 +1,140 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KOPPAWORD 2026 â€” Futuristic Document Editor</title>
-  <meta name="description" content="Professional document editor with AI writing assistant. Free for Windows, Linux, and macOS." />
+  <title>KOPPAWORD 2026 &mdash; Futuristic Document Editor</title>
+  <meta name="description" content="Professional document editor with rich text, multi-tab, auto-save. Free for Windows, Linux, and macOS." />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="shortcut icon" href="favicon.svg" />
   <style>
     :root {
-      --bg:      #0a0a1a;
-      --card:    #1a1a2e;
-      --border:  #3a3a5e;
-      --border2: #2a2a4e;
-      --gold:    #ffcc00;
-      --cyan:    #00ffcc;
-      --pink:    #ff66aa;
-      --purple:  #aa66ff;
-      --text:    #e0e0ff;
-      --muted:   #8080a0;
-      --green:   #00ff88;
-      --blue:    #66aaff;
+      --bg:     #0a0a1a; --card:   #1a1a2e; --border: #3a3a5e; --border2: #2a2a4e;
+      --gold:   #ffcc00; --cyan:   #00ffcc; --pink:   #ff66aa; --purple: #aa66ff;
+      --text:   #e0e0ff; --muted:  #8080a0; --green:  #00ff88; --blue:   #66aaff;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      font-size: 15px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; }
     ::selection { background: rgba(0,255,204,.2); }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-    /* â”€â”€ Nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    nav {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; height: 62px;
-      background: var(--card); border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 100; gap: 16px;
-    }
-    .nav-logo {
-      font-size: 20px; font-weight: 800; letter-spacing: 1px;
-      color: var(--gold); text-decoration: none; white-space: nowrap;
-    }
+    /* Nav */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 62px; background: var(--card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; gap: 16px; }
+    .nav-logo { font-size: 20px; font-weight: 800; letter-spacing: 1px; color: var(--gold); text-decoration: none; white-space: nowrap; }
     .nav-logo span { color: var(--cyan); }
     .nav-links { display: flex; align-items: center; gap: 24px; }
-    .nav-links a {
-      color: var(--muted); text-decoration: none;
-      font-size: 14px; transition: color .15s;
-    }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .15s; }
     .nav-links a:hover { color: var(--text); }
-    .nav-links a.cta {
-      background: var(--gold); color: #0a0a1a;
-      padding: 7px 16px; border-radius: 4px;
-      font-weight: 600; font-size: 13px;
-    }
+    .nav-links a.cta { background: var(--gold); color: #0a0a1a; padding: 7px 16px; border-radius: 4px; font-weight: 600; font-size: 13px; }
     .nav-links a.cta:hover { background: #ffe033; color: #0a0a1a; }
 
-    /* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .hero {
-      background: linear-gradient(180deg, #12122a 0%, var(--bg) 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 80px 40px 72px; text-align: center;
-    }
-    .hero-badge {
-      display: inline-block; font-size: 12px; font-weight: 600;
-      background: rgba(0,255,204,.08); color: var(--cyan);
-      border: 1px solid rgba(0,255,204,.3);
-      padding: 4px 14px; border-radius: 20px; letter-spacing: .5px;
-      margin-bottom: 24px;
-    }
-    .hero h1 {
-      font-size: 54px; font-weight: 800; line-height: 1.1;
-      letter-spacing: -1px; margin-bottom: 20px;
-    }
+    /* Hero */
+    .hero { background: linear-gradient(180deg, #12122a 0%, var(--bg) 100%); border-bottom: 1px solid var(--border); padding: 80px 40px 72px; text-align: center; }
+    .hero-badge { display: inline-block; font-size: 12px; font-weight: 600; background: rgba(0,255,204,.08); color: var(--cyan); border: 1px solid rgba(0,255,204,.3); padding: 4px 14px; border-radius: 20px; letter-spacing: .5px; margin-bottom: 24px; }
+    .hero h1 { font-size: 54px; font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px; }
     .hero h1 span { color: var(--gold); }
-    .hero p {
-      color: var(--muted); font-size: 17px; max-width: 540px;
-      margin: 0 auto 36px; line-height: 1.7;
-    }
-    .hero-btns {
-      display: flex; gap: 12px; justify-content: center;
-      flex-wrap: wrap; margin-bottom: 36px;
-    }
-    .btn-primary {
-      padding: 13px 28px; background: var(--gold); color: #0a0a1a;
-      border-radius: 6px; font-weight: 700; font-size: 15px;
-      text-decoration: none; transition: background .15s;
-    }
+    .hero p { color: var(--muted); font-size: 17px; max-width: 540px; margin: 0 auto 36px; line-height: 1.7; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
+    .btn-primary { padding: 13px 28px; background: var(--gold); color: #0a0a1a; border-radius: 6px; font-weight: 700; font-size: 15px; text-decoration: none; transition: background .15s; }
     .btn-primary:hover { background: #ffe033; }
-    .btn-ghost {
-      padding: 13px 28px; background: transparent; color: var(--text);
-      border: 1px solid var(--border); border-radius: 6px;
-      font-weight: 600; font-size: 15px; text-decoration: none;
-      transition: border-color .15s, color .15s;
-    }
+    .btn-ghost { padding: 13px 28px; background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: 6px; font-weight: 600; font-size: 15px; text-decoration: none; transition: border-color .15s, color .15s; }
     .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
 
-    /* â”€â”€ Fake app preview â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .app-preview {
-      max-width: 860px; margin: 40px auto 0;
-      border-radius: 10px; overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 32px 80px rgba(0,0,0,.7);
-    }
-    .ap-titlebar {
-      background: #0d0d1f; height: 36px;
-      display: flex; align-items: center; padding: 0 14px; gap: 7px;
-      border-bottom: 1px solid var(--border2);
-    }
+    /* App preview */
+    .app-preview { max-width: 860px; margin: 40px auto 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 32px 80px rgba(0,0,0,.7); }
+    .ap-titlebar { background: #0d0d1f; height: 36px; display: flex; align-items: center; padding: 0 14px; gap: 7px; border-bottom: 1px solid var(--border2); }
     .ap-dot { width: 11px; height: 11px; border-radius: 50%; }
-    .ap-title {
-      flex: 1; text-align: center; font-size: 11px;
-      color: var(--muted); font-family: monospace;
-    }
-    .ap-tabs {
-      background: #080814; height: 34px;
-      display: flex; align-items: flex-end;
-      border-bottom: 1px solid var(--border2); padding: 0 8px;
-    }
-    .ap-tab {
-      height: 26px; padding: 0 16px; border-radius: 4px 4px 0 0;
-      display: flex; align-items: center; font-size: 11px;
-      color: var(--muted); background: var(--card);
-      border: 1px solid var(--border2); border-bottom: none;
-    }
+    .ap-title { flex: 1; text-align: center; font-size: 11px; color: var(--muted); font-family: monospace; }
+    .ap-tabs { background: #080814; height: 34px; display: flex; align-items: flex-end; border-bottom: 1px solid var(--border2); padding: 0 8px; }
+    .ap-tab { height: 26px; padding: 0 16px; border-radius: 4px 4px 0 0; display: flex; align-items: center; font-size: 11px; color: var(--muted); background: var(--card); border: 1px solid var(--border2); border-bottom: none; }
     .ap-tab.active { background: #0d0d1f; color: var(--text); border-color: var(--border); }
-    .ap-toolbar {
-      background: #0d0d1f; height: 74px;
-      display: flex; align-items: center; padding: 0 12px; gap: 6px;
-      border-bottom: 1px solid var(--border2); flex-wrap: wrap; overflow: hidden;
-    }
-    .ap-tbg {
-      display: flex; gap: 3px; padding-right: 8px;
-      border-right: 1px solid var(--border2); margin-right: 2px;
-    }
+    .ap-toolbar { background: #0d0d1f; height: 74px; display: flex; align-items: center; padding: 0 12px; gap: 6px; border-bottom: 1px solid var(--border2); flex-wrap: wrap; overflow: hidden; }
+    .ap-tbg { display: flex; gap: 3px; padding-right: 8px; border-right: 1px solid var(--border2); margin-right: 2px; }
     .ap-tbg:last-child { border: none; }
     .ap-tb { height: 26px; border-radius: 4px; background: #1a1a2e; border: 1px solid var(--border2); }
     .ap-tb.active { background: rgba(255,204,0,.15); border-color: rgba(255,204,0,.4); }
     .ap-body { display: flex; height: 220px; }
-    .ap-sidebar {
-      width: 46px; background: #080814;
-      border-right: 1px solid var(--border2);
-      display: flex; flex-direction: column; align-items: center;
-      padding: 8px 0; gap: 6px;
-    }
+    .ap-sidebar { width: 46px; background: #080814; border-right: 1px solid var(--border2); display: flex; flex-direction: column; align-items: center; padding: 8px 0; gap: 6px; }
     .ap-sicon { width: 26px; height: 26px; border-radius: 6px; background: var(--card); }
-    .ap-sicon.active {
-      background: rgba(255,204,0,.15);
-      border: 1px solid rgba(255,204,0,.35);
-    }
-    .ap-page-wrap {
-      flex: 1; background: #06060f;
-      display: flex; justify-content: center; padding: 20px 16px;
-      overflow: hidden;
-    }
-    .ap-page {
-      width: 100%; max-width: 420px; background: #0d0d1a;
-      border-radius: 3px; border: 1px solid var(--border2);
-      padding: 28px 32px;
-    }
-    .ap-h1 {
-      height: 18px; width: 68%; border-radius: 3px; margin-bottom: 14px;
-      background: linear-gradient(90deg, rgba(255,204,0,.4), rgba(255,204,0,.15));
-    }
+    .ap-sicon.active { background: rgba(255,204,0,.15); border: 1px solid rgba(255,204,0,.35); }
+    .ap-page-wrap { flex: 1; background: #06060f; display: flex; justify-content: center; padding: 20px 16px; overflow: hidden; }
+    .ap-page { width: 100%; max-width: 420px; background: #0d0d1a; border-radius: 3px; border: 1px solid var(--border2); padding: 28px 32px; }
+    .ap-h1 { height: 18px; width: 68%; border-radius: 3px; margin-bottom: 14px; background: linear-gradient(90deg, rgba(255,204,0,.4), rgba(255,204,0,.15)); }
     .ap-line { height: 9px; border-radius: 2px; margin-bottom: 7px; background: #1a1a2e; }
-    .ap-cursor {
-      display: inline-block; width: 2px; height: 13px;
-      background: var(--gold); animation: blink 1s step-end infinite;
-      vertical-align: middle; margin-left: 2px;
-      box-shadow: 0 0 6px var(--gold);
-    }
-    .ap-ai {
-      width: 200px; background: #0d0d1f;
-      border-left: 1px solid var(--border2); padding: 14px;
-    }
-    .ap-ai-hdr {
-      display: flex; align-items: center; gap: 7px;
-      margin-bottom: 12px; padding-bottom: 10px;
-      border-bottom: 1px solid var(--border2);
-    }
-    .ap-ai-icon {
-      width: 24px; height: 24px; border-radius: 6px; font-size: 12px;
-      background: rgba(170,102,255,.2); border: 1px solid rgba(170,102,255,.3);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .ap-ai-msg {
-      padding: 8px; border-radius: 6px; margin-bottom: 6px;
-      font-size: 10px; color: var(--muted);
-      background: var(--card); border: 1px solid var(--border2);
-    }
-    .ap-ai-line { height: 7px; border-radius: 2px; margin-bottom: 5px; background: var(--border2); }
-    .ap-statusbar {
-      background: #060610; height: 24px;
-      display: flex; align-items: center; padding: 0 12px; gap: 16px;
-      border-top: 1px solid var(--border2);
-    }
+    .ap-cursor { display: inline-block; width: 2px; height: 13px; background: var(--gold); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 2px; box-shadow: 0 0 6px var(--gold); }
+    .ap-outline { width: 200px; background: #0d0d1f; border-left: 1px solid var(--border2); padding: 14px; }
+    .ap-ol-title { font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 10px; }
+    .ap-ol-h1 { height: 10px; border-radius: 2px; margin-bottom: 7px; background: rgba(255,204,0,.2); }
+    .ap-ol-h2 { height: 8px; border-radius: 2px; margin-bottom: 7px; margin-left: 10px; background: var(--border2); }
+    .ap-statusbar { background: #060610; height: 24px; display: flex; align-items: center; padding: 0 12px; gap: 16px; border-top: 1px solid var(--border2); }
     .ap-status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: blink 2s ease-in-out infinite; }
     .ap-status-text { height: 7px; border-radius: 2px; background: var(--border2); }
 
-    /* â”€â”€ Stats row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .stats-row {
-      display: flex; justify-content: center; gap: 48px;
-      padding: 32px 40px; border-bottom: 1px solid var(--border);
-      background: var(--card); flex-wrap: wrap;
-    }
+    /* Stats */
+    .stats-row { display: flex; justify-content: center; gap: 48px; padding: 32px 40px; border-bottom: 1px solid var(--border); background: var(--card); flex-wrap: wrap; }
     .stat { text-align: center; }
     .stat-num { font-size: 28px; font-weight: 700; color: var(--cyan); display: block; }
     .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 
-    /* â”€â”€ Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* Section */
     .section { max-width: 1000px; margin: 0 auto; padding: 72px 32px 0; }
     .section-header { text-align: center; margin-bottom: 40px; }
     .section-header h2 { font-size: 30px; font-weight: 700; margin-bottom: 10px; }
     .section-header h2 span { color: var(--cyan); }
     .section-header p { color: var(--muted); font-size: 15px; }
 
-    /* â”€â”€ Download tabs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .dl-tabs {
-      display: flex; gap: 4px; border-bottom: 1px solid var(--border);
-      margin-bottom: 24px; flex-wrap: wrap;
-    }
-    .dl-tab {
-      padding: 10px 20px; font-size: 14px; font-weight: 500;
-      color: var(--muted); cursor: pointer; border: none;
-      background: transparent; border-bottom: 2px solid transparent;
-      margin-bottom: -1px; transition: color .15s, border-color .15s;
-    }
+    /* Download tabs */
+    .dl-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 24px; flex-wrap: wrap; }
+    .dl-tab { padding: 10px 20px; font-size: 14px; font-weight: 500; color: var(--muted); cursor: pointer; border: none; background: transparent; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color .15s, border-color .15s; }
     .dl-tab:hover { color: var(--text); }
     .dl-tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
     .dl-panel { display: none; flex-direction: column; gap: 12px; }
     .dl-panel.active { display: flex; }
-    .dl-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 8px; padding: 20px 24px;
-      display: flex; align-items: flex-start; gap: 20px;
-      flex-wrap: wrap; transition: border-color .15s;
-    }
-    .dl-card:hover { border-color: var(--border2); }
+    .dl-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
     .dl-info { flex: 1; min-width: 200px; }
     .dl-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
     .dl-info p { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
-    .dl-info pre {
-      background: var(--bg); border: 1px solid var(--border2);
-      border-radius: 6px; padding: 12px 16px;
-      font-family: "SFMono-Regular", Consolas, monospace;
-      font-size: 13px; color: var(--green); overflow-x: auto; line-height: 1.8;
-    }
-    .dl-btn {
-      padding: 9px 18px; background: var(--cyan); color: #0a0a1a;
-      border-radius: 5px; font-weight: 600; font-size: 13px;
-      text-decoration: none; white-space: nowrap; align-self: flex-start;
-      transition: opacity .15s;
-    }
+    .dl-info pre { background: var(--bg); border: 1px solid var(--border2); border-radius: 6px; padding: 12px 16px; font-family: "SFMono-Regular", Consolas, monospace; font-size: 13px; color: var(--green); overflow-x: auto; line-height: 1.8; }
+    .dl-btn { padding: 9px 18px; background: var(--cyan); color: #0a0a1a; border-radius: 5px; font-weight: 600; font-size: 13px; text-decoration: none; white-space: nowrap; align-self: flex-start; transition: opacity .15s; }
     .dl-btn:hover { opacity: .85; }
     .dl-btn.gold { background: var(--gold); }
-    .dl-btn.ghost {
-      background: transparent; color: var(--muted);
-      border: 1px solid var(--border);
-    }
+    .dl-btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
     .dl-btn.ghost:hover { border-color: var(--cyan); color: var(--cyan); opacity: 1; }
 
-    /* â”€â”€ Features grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* Features */
     .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-    .feat-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 8px; padding: 20px;
-      transition: border-color .15s;
-    }
+    .feat-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; transition: border-color .15s; }
     .feat-card:hover { border-color: var(--purple); }
-    .feat-tag {
-      display: inline-block; font-size: 11px; font-weight: 600;
-      padding: 2px 8px; border-radius: 4px; margin-bottom: 10px;
-      text-transform: uppercase; letter-spacing: .5px;
-    }
-    .tag-edit   { background: rgba(255,204,0,.1);  color: var(--gold); }
-    .tag-ai     { background: rgba(170,102,255,.1); color: var(--purple); }
-    .tag-ui     { background: rgba(0,255,204,.1);   color: var(--cyan); }
-    .tag-file   { background: rgba(255,102,170,.1); color: var(--pink); }
-    .tag-sys    { background: rgba(0,255,136,.1);   color: var(--green); }
+    .feat-tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .5px; }
+    .tag-edit  { background: rgba(255,204,0,.1);  color: var(--gold); }
+    .tag-ui    { background: rgba(0,255,204,.1);   color: var(--cyan); }
+    .tag-file  { background: rgba(255,102,170,.1); color: var(--pink); }
+    .tag-sys   { background: rgba(0,255,136,.1);   color: var(--green); }
     .feat-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-    .feat-card p  { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .feat-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
 
-    /* â”€â”€ Keyboard shortcuts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .shortcut-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px;
-    }
-    .shortcut-item {
-      background: var(--card); border: 1px solid var(--border2);
-      border-radius: 6px; padding: 10px 14px;
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 13px;
-    }
+    /* Shortcuts */
+    .shortcut-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+    .shortcut-item { background: var(--card); border: 1px solid var(--border2); border-radius: 6px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
     .shortcut-item span { color: var(--muted); }
-    .shortcut-item kbd {
-      font-family: "SFMono-Regular", Consolas, monospace;
-      font-size: 11px; color: var(--gold);
-      background: rgba(255,204,0,.08); border: 1px solid rgba(255,204,0,.2);
-      padding: 2px 7px; border-radius: 4px; white-space: nowrap;
-    }
+    .shortcut-item kbd { font-family: "SFMono-Regular", Consolas, monospace; font-size: 11px; color: var(--gold); background: rgba(255,204,0,.08); border: 1px solid rgba(255,204,0,.2); padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
 
-    /* â”€â”€ Coming soon â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* Coming soon */
     .cs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 32px; }
-    .cs-card {
-      position: relative; background: var(--card);
-      border: 1px solid var(--border); border-radius: 8px;
-      padding: 20px; opacity: .75;
-    }
-    .cs-eta {
-      position: absolute; top: 14px; right: 14px;
-      font-size: 11px; font-weight: 600;
-      background: rgba(255,204,0,.1); color: var(--gold);
-      border: 1px solid rgba(255,204,0,.25);
-      padding: 2px 8px; border-radius: 4px;
-    }
+    .cs-card { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; opacity: .75; }
+    .cs-eta { position: absolute; top: 14px; right: 14px; font-size: 11px; font-weight: 600; background: rgba(255,204,0,.1); color: var(--gold); border: 1px solid rgba(255,204,0,.25); padding: 2px 8px; border-radius: 4px; }
     .cs-icon { font-size: 26px; margin-bottom: 12px; display: block; }
     .cs-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-    .cs-card p  { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .cs-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
     .cs-card ul { list-style: none; margin-top: 12px; }
-    .cs-card ul li {
-      font-size: 12px; color: #5a5a80; padding: 4px 0;
-      border-bottom: 1px solid var(--border2);
-      display: flex; align-items: center; gap: 8px;
-    }
-    .cs-card ul li::before { content: 'â—‹'; color: var(--gold); font-size: 10px; }
+    .cs-card ul li { font-size: 12px; color: #5a5a80; padding: 4px 0; border-bottom: 1px solid var(--border2); display: flex; align-items: center; gap: 8px; }
+    .cs-card ul li::before { content: '\25CB'; color: var(--gold); font-size: 10px; }
 
-    /* â”€â”€ Code block â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .code-box {
-      background: #0d1117; border: 1px solid var(--border2);
-      border-radius: 8px; padding: 24px;
-      font-family: "SFMono-Regular", Consolas, monospace;
-      font-size: 13.5px; line-height: 1.8; overflow-x: auto;
-    }
-    .cmt  { color: var(--muted); font-style: italic; }
-    .kw   { color: #ff7b72; }
-    .str  { color: var(--cyan); }
-    .fn   { color: var(--purple); }
-    .ok   { color: var(--green); }
-    .num  { color: var(--gold); }
-
-    /* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    footer {
-      border-top: 1px solid var(--border); text-align: center;
-      padding: 32px 24px; color: var(--muted); font-size: 13px;
-      margin-top: 80px; line-height: 2;
-    }
+    /* Footer */
+    footer { border-top: 1px solid var(--border); text-align: center; padding: 32px 24px; color: var(--muted); font-size: 13px; margin-top: 80px; line-height: 2; }
     footer a { color: var(--cyan); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     footer strong { color: var(--text); }
@@ -362,13 +146,12 @@
       nav { padding: 0 16px; }
       .nav-links { gap: 12px; }
       .stats-row { gap: 24px; }
-      .ap-ai { display: none; }
+      .ap-outline { display: none; }
     }
   </style>
 </head>
 <body>
 
-<!-- â”€â”€ Nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <nav>
   <a class="nav-logo" href="#">KOPPA<span>WORD</span></a>
   <div class="nav-links">
@@ -377,30 +160,28 @@
     <a href="#shortcuts">Shortcuts</a>
     <a href="#coming">Roadmap</a>
     <a href="https://github.com/guea14012/koppaword-2026" target="_blank">GitHub</a>
-    <a href="https://github.com/guea14012/koppaword-2026/releases" target="_blank" class="cta">â†“ Latest Release</a>
+    <a href="https://github.com/guea14012/koppaword-2026/releases" target="_blank" class="cta">&#8595; Latest Release</a>
   </div>
 </nav>
 
-<!-- â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <section class="hero">
-  <div class="hero-badge">v1.0.0 â€” Now Available Â· Free &amp; Open Source</div>
+  <div class="hero-badge">v1.0.0 &mdash; Now Available &middot; Free &amp; Open Source</div>
   <h1>The <span>Document Editor</span><br>for the Future</h1>
-  <p>Professional writing tool with AI assistant built-in. Rich text, multi-tab, offline-first. Works on Windows, Linux, and macOS.</p>
+  <p>Professional writing tool with rich text editing, multi-tab support, and auto-save. Works on Windows, Linux, and macOS.</p>
   <div class="hero-btns">
-    <a class="btn-primary" href="#download">â†“ Download Free</a>
+    <a class="btn-primary" href="#download">&#8595; Download Free</a>
     <a class="btn-ghost" href="https://github.com/guea14012/koppaword-2026" target="_blank">View on GitHub</a>
   </div>
 
-  <!-- Fake app window -->
   <div class="app-preview">
     <div class="ap-titlebar">
       <div class="ap-dot" style="background:#ff3355"></div>
       <div class="ap-dot" style="background:#ffaa00"></div>
       <div class="ap-dot" style="background:#00ff88"></div>
-      <div class="ap-title">Untitled Document â€” KOPPAWORD 2026</div>
+      <div class="ap-title">Untitled Document &mdash; KOPPAWORD 2026</div>
     </div>
     <div class="ap-tabs">
-      <div class="ap-tab active">â— Untitled Document</div>
+      <div class="ap-tab active">&#9679; Untitled Document</div>
       <div class="ap-tab">Report Draft</div>
     </div>
     <div class="ap-toolbar">
@@ -421,11 +202,6 @@
       </div>
       <div class="ap-tbg">
         <div class="ap-tb" style="width:26px"></div>
-        <div class="ap-tb" style="width:26px"></div>
-        <div class="ap-tb" style="width:26px"></div>
-        <div class="ap-tb" style="width:26px"></div>
-      </div>
-      <div class="ap-tbg">
         <div class="ap-tb" style="width:26px"></div>
         <div class="ap-tb" style="width:26px"></div>
         <div class="ap-tb" style="width:26px"></div>
@@ -453,16 +229,14 @@
           <div class="ap-cursor"></div>
         </div>
       </div>
-      <div class="ap-ai">
-        <div style="padding:12px">
-          <div style="font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:600">OUTLINE</div>
-          <div style="height:10px;width:80%;background:rgba(255,204,0,.2);border-radius:3px;margin-bottom:7px"></div>
-          <div style="height:8px;width:60%;background:var(--border2);border-radius:3px;margin-bottom:7px;margin-left:10px"></div>
-          <div style="height:8px;width:70%;background:var(--border2);border-radius:3px;margin-bottom:7px;margin-left:10px"></div>
-          <div style="height:8px;width:50%;background:var(--border2);border-radius:3px;margin-bottom:7px;margin-left:20px"></div>
-          <div style="height:10px;width:75%;background:rgba(255,204,0,.15);border-radius:3px;margin-bottom:7px"></div>
-          <div style="height:8px;width:55%;background:var(--border2);border-radius:3px;margin-left:10px"></div>
-        </div>
+      <div class="ap-outline">
+        <div class="ap-ol-title">OUTLINE</div>
+        <div class="ap-ol-h1" style="width:80%"></div>
+        <div class="ap-ol-h2" style="width:60%"></div>
+        <div class="ap-ol-h2" style="width:70%"></div>
+        <div class="ap-ol-h2" style="width:50%; margin-left:20px"></div>
+        <div class="ap-ol-h1" style="width:75%; margin-top:7px"></div>
+        <div class="ap-ol-h2" style="width:55%"></div>
       </div>
     </div>
     <div class="ap-statusbar">
@@ -475,66 +249,48 @@
   </div>
 </section>
 
-<!-- â”€â”€ Stats â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <div class="stats-row">
-  <div class="stat">
-    <span class="stat-num">30+</span>
-    <span class="stat-label">Editor Extensions</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">30+</span>
-    <span class="stat-label">Keyboard Shortcuts</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">3</span>
-    <span class="stat-label">Platforms</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">MIT</span>
-    <span class="stat-label">License</span>
-  </div>
+  <div class="stat"><span class="stat-num">30+</span><span class="stat-label">Editor Extensions</span></div>
+  <div class="stat"><span class="stat-num">30+</span><span class="stat-label">Keyboard Shortcuts</span></div>
+  <div class="stat"><span class="stat-num">3</span><span class="stat-label">Platforms</span></div>
+  <div class="stat"><span class="stat-num">MIT</span><span class="stat-label">License</span></div>
 </div>
 
-<!-- â”€â”€ Download â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <section class="section" id="download">
   <div class="section-header">
     <h2>Download <span>KOPPAWORD 2026</span></h2>
     <p>No account required. No subscription. Just download and run.</p>
   </div>
-
   <div class="dl-tabs">
-    <button class="dl-tab active" onclick="showDL('windows',this)">ðŸªŸ Windows</button>
-    <button class="dl-tab" onclick="showDL('linux',this)">ðŸ§ Linux</button>
-    <button class="dl-tab" onclick="showDL('mac',this)">ðŸŽ macOS</button>
-    <button class="dl-tab" onclick="showDL('source',this)">âš™ Build from Source</button>
+    <button class="dl-tab active" onclick="showDL('windows',this)">&#127999; Windows</button>
+    <button class="dl-tab" onclick="showDL('linux',this)">&#128039; Linux</button>
+    <button class="dl-tab" onclick="showDL('mac',this)">&#127822; macOS</button>
+    <button class="dl-tab" onclick="showDL('source',this)">&#9881; Build from Source</button>
   </div>
-
   <div class="dl-panel active" id="panel-windows">
     <div class="dl-card">
       <div class="dl-info">
         <h3>Windows Installer (.exe)</h3>
-        <p>NSIS installer with wizard â€” desktop shortcut, Start Menu entry, and .kwdoc file association.</p>
+        <p>NSIS installer with wizard &mdash; desktop shortcut, Start Menu, and .kwdoc file association.</p>
         <pre>KOPPAWORD 2026 Setup 1.0.0.exe
-Windows 10 / 11 Â· x64 Â· ~120 MB</pre>
+Windows 10 / 11 &middot; x64 &middot; ~120 MB</pre>
       </div>
       <a class="dl-btn gold" href="https://github.com/guea14012/koppaword-2026/releases/latest/download/KOPPAWORD.2026.Setup.exe">Download .exe</a>
     </div>
     <div class="dl-card">
       <div class="dl-info">
         <h3>Portable (.exe)</h3>
-        <p>No installation needed. Extract and run anywhere â€” USB, network drives, etc.</p>
-        <pre>KOPPAWORD 2026 1.0.0.exe
-No admin rights required</pre>
+        <p>No installation needed. Run from anywhere &mdash; USB drives, network shares.</p>
+        <pre>No admin rights required</pre>
       </div>
-      <a class="dl-btn" href="https://github.com/guea14012/koppaword-2026/releases/latest/download/KOPPAWORD.2026.portable.exe">Download portable</a>
+      <a class="dl-btn" href="https://github.com/guea14012/koppaword-2026/releases/latest">Releases page</a>
     </div>
   </div>
-
   <div class="dl-panel" id="panel-linux">
     <div class="dl-card">
       <div class="dl-info">
         <h3>AppImage (Universal)</h3>
-        <p>Works on any Linux distro. No installation needed, just make it executable and run.</p>
+        <p>Works on any Linux distro. Make it executable and run.</p>
         <pre>chmod +x KOPPAWORD.2026.AppImage
 ./KOPPAWORD.2026.AppImage</pre>
       </div>
@@ -547,32 +303,22 @@ No admin rights required</pre>
       </div>
       <a class="dl-btn ghost" href="https://github.com/guea14012/koppaword-2026/releases/latest">Releases page</a>
     </div>
-    <div class="dl-card">
-      <div class="dl-info">
-        <h3>Fedora / RHEL (.rpm)</h3>
-        <pre>sudo rpm -i koppaword-2026-1.0.0.x86_64.rpm</pre>
-      </div>
-      <a class="dl-btn ghost" href="https://github.com/guea14012/koppaword-2026/releases/latest">Releases page</a>
-    </div>
   </div>
-
   <div class="dl-panel" id="panel-mac">
     <div class="dl-card">
       <div class="dl-info">
         <h3>macOS Disk Image (.dmg)</h3>
-        <p>Universal binary â€” native on both Apple Silicon (M1/M2/M3) and Intel Macs.</p>
-        <pre>KOPPAWORD.2026.dmg
-macOS 12 Monterey or newer</pre>
+        <p>Universal binary &mdash; Apple Silicon (M1/M2/M3) and Intel.</p>
+        <pre>macOS 12 Monterey or newer</pre>
       </div>
       <a class="dl-btn" href="https://github.com/guea14012/koppaword-2026/releases/latest/download/KOPPAWORD.2026.dmg">Download .dmg</a>
     </div>
   </div>
-
   <div class="dl-panel" id="panel-source">
     <div class="dl-card">
       <div class="dl-info">
         <h3>Build from source</h3>
-        <p>Requires Node.js 18+ and npm 9+. Builds a production installer for your platform.</p>
+        <p>Requires Node.js 18+ and npm 9+.</p>
         <pre>git clone https://github.com/guea14012/koppaword-2026.git
 cd "koppaword-2026"
 npm install
@@ -584,17 +330,16 @@ npm run build:win         # Windows installer</pre>
   </div>
 </section>
 
-<!-- â”€â”€ Features â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <section class="section" id="features">
   <div class="section-header">
-    <h2>What's <span>included</span></h2>
-    <p>Full-featured editor â€” no plugins needed for core functionality</p>
+    <h2>What&apos;s <span>included</span></h2>
+    <p>Full-featured editor &mdash; no plugins needed for core functionality</p>
   </div>
   <div class="feat-grid">
     <div class="feat-card">
       <span class="feat-tag tag-edit">Editor</span>
       <h3>Rich Text Engine</h3>
-      <p>TipTap v2 â€” headings, tables, code blocks, task lists, images, links, font control, colors.</p>
+      <p>TipTap v2 &mdash; headings, tables, code blocks, task lists, images, links, font control, colors.</p>
     </div>
     <div class="feat-card">
       <span class="feat-tag tag-edit">Editor</span>
@@ -604,7 +349,7 @@ npm run build:win         # Windows installer</pre>
     <div class="feat-card">
       <span class="feat-tag tag-ui">UI</span>
       <h3>Command Palette</h3>
-      <p>30+ commands with fuzzy search. Press <kbd style="font-family:monospace;color:var(--gold)">Ctrl+K</kbd> and type anything.</p>
+      <p>30+ commands with fuzzy search. Press Ctrl+K and type anything.</p>
     </div>
     <div class="feat-card">
       <span class="feat-tag tag-edit">Editor</span>
@@ -624,7 +369,7 @@ npm run build:win         # Windows installer</pre>
     <div class="feat-card">
       <span class="feat-tag tag-ui">UI</span>
       <h3>Sidebar Panels</h3>
-      <p>Explorer, document outline, recent files, and in-document search â€” all in the left panel.</p>
+      <p>Explorer, document outline, recent files, and in-document search &mdash; all in the left panel.</p>
     </div>
     <div class="feat-card">
       <span class="feat-tag tag-ui">UI</span>
@@ -634,16 +379,15 @@ npm run build:win         # Windows installer</pre>
     <div class="feat-card">
       <span class="feat-tag tag-sys">System</span>
       <h3>Works Offline</h3>
-      <p>All editing, saving, and history work offline. AI features are optional and require an API key.</p>
+      <p>All editing, saving, and history work completely offline. No account required.</p>
     </div>
   </div>
 </section>
 
-<!-- â”€â”€ Keyboard shortcuts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <section class="section" id="shortcuts">
   <div class="section-header">
     <h2>Keyboard <span>Shortcuts</span></h2>
-    <p>Every action has a shortcut â€” keep your hands on the keyboard</p>
+    <p>Every action has a shortcut &mdash; keep your hands on the keyboard</p>
   </div>
   <div class="shortcut-grid">
     <div class="shortcut-item"><span>New Document</span>    <kbd>Ctrl+N</kbd></div>
@@ -652,7 +396,6 @@ npm run build:win         # Windows installer</pre>
     <div class="shortcut-item"><span>Save As</span>         <kbd>Ctrl+Shift+S</kbd></div>
     <div class="shortcut-item"><span>Command Palette</span> <kbd>Ctrl+K</kbd></div>
     <div class="shortcut-item"><span>Find &amp; Replace</span>  <kbd>Ctrl+H</kbd></div>
-    <div class="shortcut-item"><span>AI Assistant</span>    <kbd>Ctrl+Shift+A</kbd></div>
     <div class="shortcut-item"><span>Toggle Sidebar</span>  <kbd>Ctrl+B</kbd></div>
     <div class="shortcut-item"><span>Focus Mode</span>      <kbd>F11</kbd></div>
     <div class="shortcut-item"><span>Undo / Redo</span>     <kbd>Ctrl+Z / Y</kbd></div>
@@ -662,104 +405,101 @@ npm run build:win         # Windows installer</pre>
     <div class="shortcut-item"><span>Zoom In / Out</span>   <kbd>Ctrl+= / -</kbd></div>
     <div class="shortcut-item"><span>Reset Zoom</span>      <kbd>Ctrl+0</kbd></div>
     <div class="shortcut-item"><span>Print</span>           <kbd>Ctrl+P</kbd></div>
+    <div class="shortcut-item"><span>Export HTML</span>     <kbd>View tab</kbd></div>
   </div>
 </section>
 
-<!-- â”€â”€ Coming Soon â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <section class="section" id="coming">
   <div class="section-header">
-    <h2>What's <span>coming next</span></h2>
-    <p>Features in active development â€” follow the repo for updates</p>
+    <h2>What&apos;s <span>coming next</span></h2>
+    <p>Features in active development &mdash; follow the repo for updates</p>
   </div>
   <div class="cs-grid">
     <div class="cs-card">
       <span class="cs-eta">Q3 2026</span>
-      <span class="cs-icon">ðŸ“Š</span>
-      <h3>KOPPASHEET â€” Spreadsheet Editor</h3>
+      <span class="cs-icon">&#128202;</span>
+      <h3>KOPPASHEET &mdash; Spreadsheet Editor</h3>
       <p>Full Excel-compatible spreadsheet editor built into the same app.</p>
       <ul>
         <li>.xlsx import &amp; export</li>
         <li>300+ built-in formulas</li>
         <li>Charts and pivot tables</li>
         <li>Conditional formatting</li>
-        <li>AI formula suggestions</li>
       </ul>
     </div>
     <div class="cs-card">
       <span class="cs-eta">Q3 2026</span>
-      <span class="cs-icon">ðŸ“„</span>
+      <span class="cs-icon">&#128209;</span>
       <h3>Advanced PDF Suite</h3>
-      <p>Native PDF creation, editing, and annotation â€” no external software needed.</p>
+      <p>Native PDF creation, editing, and annotation.</p>
       <ul>
         <li>Native PDF renderer</li>
         <li>Annotations &amp; markup</li>
         <li>Form filling</li>
         <li>Merge / split PDFs</li>
-        <li>OCR text extraction</li>
       </ul>
     </div>
     <div class="cs-card">
       <span class="cs-eta">Q4 2026</span>
-      <span class="cs-icon">ðŸŽ¤</span>
+      <span class="cs-icon">&#127908;</span>
       <h3>Voice Typing &amp; OCR</h3>
-      <p>Speak your document into existence. Scan physical documents with your camera.</p>
+      <p>Speak your document. Scan text from images.</p>
       <ul>
         <li>Real-time voice typing</li>
         <li>Multi-language recognition</li>
-        <li>Image â†’ text (OCR)</li>
+        <li>Image to text (OCR)</li>
         <li>Screenshot annotation</li>
       </ul>
     </div>
     <div class="cs-card">
       <span class="cs-eta">Q4 2026</span>
-      <span class="cs-icon">ðŸŒ</span>
+      <span class="cs-icon">&#127760;</span>
       <h3>Cloud &amp; Collaboration</h3>
-      <p>Real-time co-editing and encrypted cloud sync â€” fully optional.</p>
+      <p>Real-time co-editing and encrypted cloud sync.</p>
       <ul>
         <li>Real-time co-editing</li>
         <li>Presence indicators</li>
         <li>End-to-end encrypted sync</li>
-        <li>Shareable read-only links</li>
+        <li>Shareable links</li>
       </ul>
     </div>
     <div class="cs-card">
       <span class="cs-eta">2027</span>
-      <span class="cs-icon">ðŸ”Œ</span>
+      <span class="cs-icon">&#128268;</span>
       <h3>Plugin Marketplace</h3>
-      <p>Community-built extensions and AI-powered document templates.</p>
+      <p>Community-built extensions and templates.</p>
       <ul>
         <li>JavaScript plugin API</li>
-        <li>AI template marketplace</li>
+        <li>Template marketplace</li>
         <li>Custom themes</li>
         <li>Third-party integrations</li>
       </ul>
     </div>
     <div class="cs-card">
       <span class="cs-eta">2027</span>
-      <span class="cs-icon">ðŸ“±</span>
+      <span class="cs-icon">&#128241;</span>
       <h3>Mobile App</h3>
-      <p>KOPPAWORD for Android and iOS with offline sync to your desktop.</p>
+      <p>KOPPAWORD for Android and iOS.</p>
       <ul>
         <li>React Native client</li>
         <li>Offline-first sync</li>
-        <li>Camera â†’ document scan</li>
+        <li>Camera to document scan</li>
         <li>Touch-optimized editor</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <footer>
   <div style="margin-bottom:8px">
-    <strong>KOPPAWORD 2026</strong> &nbsp;Â·&nbsp;
-    <a href="https://github.com/guea14012/koppaword-2026" target="_blank">GitHub</a> &nbsp;Â·&nbsp;
-    <a href="https://github.com/guea14012/koppaword-2026/releases" target="_blank">Releases</a> &nbsp;Â·&nbsp;
-    <a href="https://github.com/guea14012/koppaword-2026/issues" target="_blank">Bug Reports</a> &nbsp;Â·&nbsp;
-    <a href="https://github.com/guea14012/koppaword-2026/blob/main/README.md" target="_blank">Docs</a> &nbsp;Â·&nbsp;
+    <strong>KOPPAWORD 2026</strong> &nbsp;&middot;&nbsp;
+    <a href="https://github.com/guea14012/koppaword-2026" target="_blank">GitHub</a> &nbsp;&middot;&nbsp;
+    <a href="https://github.com/guea14012/koppaword-2026/releases" target="_blank">Releases</a> &nbsp;&middot;&nbsp;
+    <a href="https://github.com/guea14012/koppaword-2026/issues" target="_blank">Bug Reports</a> &nbsp;&middot;&nbsp;
+    <a href="https://github.com/guea14012/koppaword-2026/blob/main/README.md" target="_blank">Docs</a> &nbsp;&middot;&nbsp;
     <a href="mailto:kua.kuakun@gmail.com">Contact</a>
   </div>
-  <div>v1.0.0 &nbsp;Â·&nbsp; MIT License &nbsp;Â·&nbsp; Built with Electron + React + TipTap &nbsp;Â·&nbsp; by KoppaZZZ</div>
+  <div>v1.0.0 &nbsp;&middot;&nbsp; MIT License &nbsp;&middot;&nbsp; Built with Electron + React + TipTap &nbsp;&middot;&nbsp; by KoppaZZZ</div>
 </footer>
 
 <script>
@@ -772,4 +512,3 @@ function showDL(name, el) {
 </script>
 </body>
 </html>
-
