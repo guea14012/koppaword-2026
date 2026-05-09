@@ -6,7 +6,6 @@ import { join, dirname } from 'path'
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs'
 import Store from 'electron-store'
 import Database from 'better-sqlite3'
-import Anthropic from '@anthropic-ai/sdk'
 
 import { v4 as uuidv4 } from 'uuid'
 import os from 'os'
@@ -164,7 +163,6 @@ function setupMenu() {
       label: 'View',
       submenu: [
         { label: 'Toggle Sidebar',    accelerator: 'CmdOrCtrl+B',       click: send('menu-toggle-sidebar') },
-        { label: 'Toggle AI Panel',   accelerator: 'CmdOrCtrl+Shift+A', click: send('menu-toggle-ai') },
         { label: 'Focus Mode',        accelerator: 'F11',                click: send('menu-focus-mode') },
         { type: 'separator' },
         { label: 'Zoom In',           accelerator: 'CmdOrCtrl+=',       click: send('menu-zoom-in') },
@@ -325,37 +323,6 @@ ipcMain.handle('db:documents:versions', (_, id: string) =>
   db.prepare('SELECT id, word_count, created_at FROM document_versions WHERE document_id=? ORDER BY created_at DESC LIMIT 20').all(id)
 )
 
-// ─── IPC: AI (Anthropic SDK in main process) ──────────────────────────────────
-const AI_SYSTEM = `You are an intelligent writing assistant in KOPPAWORD 2026, a professional document editor. Help users rewrite, summarize, translate, fix grammar, expand ideas, and answer questions about their documents. Keep responses focused and clean.`
-
-ipcMain.handle('ai:chat', async (_, { message, context, history = [], apiKey }) => {
-  const key = apiKey || store.get('ai-api-key') as string || process.env.ANTHROPIC_API_KEY
-  if (!key) throw new Error('No API key. Set it in the AI panel settings.')
-
-  const client = new Anthropic({ apiKey: key })
-  const messages: Anthropic.MessageParam[] = []
-
-  if (context?.trim()) {
-    messages.push({ role: 'user', content: `[Document context]:\n${context}` })
-    messages.push({ role: 'assistant', content: 'Got the document context. How can I help?' })
-  }
-
-  for (const m of (history as Array<{ role: string; content: string }>).slice(-6)) {
-    messages.push({ role: m.role as 'user' | 'assistant', content: m.content })
-  }
-  messages.push({ role: 'user', content: message })
-
-  const res = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 1500,
-    system: AI_SYSTEM,
-    messages,
-  })
-  return { response: res.content[0].type === 'text' ? res.content[0].text : '' }
-})
-
-ipcMain.handle('ai:store-key', (_, key: string) => store.set('ai-api-key', key))
-ipcMain.handle('ai:get-key',   ()              => !!(store.get('ai-api-key') as string))
 
 // ─── Menu event forwarders ────────────────────────────────────────────────────
 // (already sent above via send() closures)

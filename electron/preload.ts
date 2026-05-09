@@ -4,7 +4,7 @@ const MENU_CHANNELS = [
   'menu-new', 'menu-open', 'menu-save', 'menu-save-as',
   'menu-export-pdf', 'menu-export-html', 'menu-print',
   'menu-find-replace', 'menu-command-palette',
-  'menu-toggle-sidebar', 'menu-toggle-ai', 'menu-focus-mode',
+  'menu-toggle-sidebar', 'menu-focus-mode',
   'menu-zoom-in', 'menu-zoom-out', 'menu-zoom-reset',
   'menu-shortcuts', 'auto-save-trigger', 'open-file-path',
 ]
@@ -58,13 +58,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     update:   (id: string, data: unknown) => ipcRenderer.invoke('db:documents:update', id, data),
     delete:   (id: string)                => ipcRenderer.invoke('db:documents:delete', id),
     versions: (id: string)                => ipcRenderer.invoke('db:documents:versions', id),
-  },
-
-  // ── AI (Anthropic SDK in main process) ───────────────────
-  ai: {
-    chat:     (params: unknown) => ipcRenderer.invoke('ai:chat', params),
-    storeKey: (key: string)     => ipcRenderer.invoke('ai:store-key', key),
-    hasKey:   ()                => ipcRenderer.invoke('ai:get-key'),
   },
 
   // ── Menu / event bus ─────────────────────────────────────

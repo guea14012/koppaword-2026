@@ -6,8 +6,8 @@ import {
   List, ListOrdered, CheckSquare, Quote, Minus,
   Image, Table, Subscript, Superscript,
   Type, Palette, Highlighter,
-  Undo2, Redo2, Scissors, Copy, Clipboard,
-  Search, Bot, Maximize2, ZoomIn, ZoomOut,
+  Undo2, Redo2,
+  Search, Maximize2, ZoomIn, ZoomOut,
   FileDown, Columns2,
 } from 'lucide-react'
 import clsx from 'clsx'
@@ -42,7 +42,7 @@ function Btn({ onClick, active, title, children, disabled = false }: {
 function Sep() { return <div className="toolbar-separator" /> }
 
 export default function Toolbar() {
-  const { editor, formatting, zoom, setZoom, toggleCommandPalette, toggleAIPanel, toggleFindReplace } = useEditorStore()
+  const { editor, formatting, zoom, setZoom, toggleCommandPalette, toggleFindReplace } = useEditorStore()
   const { getActiveDocument } = useDocumentStore()
   const [activeTab, setActiveTab] = useState<'home' | 'insert' | 'format' | 'view'>('home')
   const [showFontDropdown, setShowFontDropdown] = useState(false)
@@ -82,12 +82,6 @@ export default function Toolbar() {
           className="toolbar-btn mr-1" title="Find & Replace (Ctrl+H)"
         >
           <Search size={14} />
-        </button>
-        <button
-          onClick={toggleAIPanel}
-          className="toolbar-btn mr-1 text-koppa-purple" title="AI Assistant (Ctrl+Shift+A)"
-        >
-          <Bot size={14} />
         </button>
       </div>
 

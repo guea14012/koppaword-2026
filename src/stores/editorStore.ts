@@ -31,9 +31,6 @@ interface EditorStore {
   showCommandPalette: boolean
   toggleCommandPalette: () => void
 
-  showAIPanel: boolean
-  toggleAIPanel: () => void
-
   showSidebar: boolean
   toggleSidebar: () => void
 
@@ -66,37 +63,36 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   setEditor: (editor) => set({ editor }),
 
   formatting: defaultFormatting,
-  updateFormatting: (updates) =>
-    set(s => ({ formatting: { ...s.formatting, ...updates } })),
+  updateFormatting: (updates) => set(s => ({ formatting: { ...s.formatting, ...updates } })),
 
   syncFormattingFromEditor: () => {
     const { editor } = get()
     if (!editor) return
     set({
       formatting: {
-        bold: editor.isActive('bold'),
-        italic: editor.isActive('italic'),
-        underline: editor.isActive('underline'),
-        strike: editor.isActive('strike'),
-        code: editor.isActive('code'),
-        textColor: editor.getAttributes('textStyle').color ?? '#e0e4ff',
+        bold:           editor.isActive('bold'),
+        italic:         editor.isActive('italic'),
+        underline:      editor.isActive('underline'),
+        strike:         editor.isActive('strike'),
+        code:           editor.isActive('code'),
+        textColor:      editor.getAttributes('textStyle').color ?? '#e0e4ff',
         highlightColor: editor.getAttributes('highlight').color ?? '',
-        fontFamily: editor.getAttributes('textStyle').fontFamily ?? 'Inter',
-        fontSize: parseInt(editor.getAttributes('textStyle').fontSize ?? '16'),
-        textAlign: (editor.isActive({ textAlign: 'center' }) ? 'center'
-          : editor.isActive({ textAlign: 'right' }) ? 'right'
-          : editor.isActive({ textAlign: 'justify' }) ? 'justify'
-          : 'left') as FormattingState['textAlign'],
-        heading: editor.isActive('heading', { level: 1 }) ? 1
-          : editor.isActive('heading', { level: 2 }) ? 2
-          : editor.isActive('heading', { level: 3 }) ? 3
-          : null,
-        bulletList: editor.isActive('bulletList'),
-        orderedList: editor.isActive('orderedList'),
-        taskList: editor.isActive('taskList'),
-        blockquote: editor.isActive('blockquote'),
-        subscript: editor.isActive('subscript'),
-        superscript: editor.isActive('superscript'),
+        fontFamily:     editor.getAttributes('textStyle').fontFamily ?? 'Inter',
+        fontSize:       parseInt(editor.getAttributes('textStyle').fontSize ?? '16'),
+        textAlign: (
+          editor.isActive({ textAlign: 'center' })  ? 'center'  :
+          editor.isActive({ textAlign: 'right' })   ? 'right'   :
+          editor.isActive({ textAlign: 'justify' }) ? 'justify' : 'left'
+        ) as FormattingState['textAlign'],
+        heading:      editor.isActive('heading', { level: 1 }) ? 1
+                    : editor.isActive('heading', { level: 2 }) ? 2
+                    : editor.isActive('heading', { level: 3 }) ? 3 : null,
+        bulletList:   editor.isActive('bulletList'),
+        orderedList:  editor.isActive('orderedList'),
+        taskList:     editor.isActive('taskList'),
+        blockquote:   editor.isActive('blockquote'),
+        subscript:    editor.isActive('subscript'),
+        superscript:  editor.isActive('superscript'),
       },
     })
   },
@@ -110,30 +106,18 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   presentationMode: false,
   togglePresentationMode: () => set(s => ({ presentationMode: !s.presentationMode })),
 
-  wordCount: 0,
-  charCount: 0,
-  cursorLine: 1,
-  cursorCol: 1,
+  wordCount: 0, charCount: 0, cursorLine: 1, cursorCol: 1,
   setStats: (wc, cc, line, col) => set({ wordCount: wc, charCount: cc, cursorLine: line, cursorCol: col }),
 
   findReplace: {
-    isOpen: false,
-    query: '',
-    replacement: '',
-    caseSensitive: false,
-    wholeWord: false,
-    useRegex: false,
-    matchCount: 0,
-    currentMatch: 0,
+    isOpen: false, query: '', replacement: '',
+    caseSensitive: false, wholeWord: false, useRegex: false,
+    matchCount: 0, currentMatch: 0,
   },
-  setFindReplace: (updates) =>
-    set(s => ({ findReplace: { ...s.findReplace, ...updates } })),
+  setFindReplace: (updates) => set(s => ({ findReplace: { ...s.findReplace, ...updates } })),
 
   showCommandPalette: false,
   toggleCommandPalette: () => set(s => ({ showCommandPalette: !s.showCommandPalette })),
-
-  showAIPanel: false,
-  toggleAIPanel: () => set(s => ({ showAIPanel: !s.showAIPanel })),
 
   showSidebar: true,
   toggleSidebar: () => set(s => ({ showSidebar: !s.showSidebar })),

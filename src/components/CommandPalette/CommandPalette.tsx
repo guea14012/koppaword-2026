@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Search, FileText, Bold, Italic, Underline, List, ListOrdered,
   AlignLeft, AlignCenter, AlignRight, Table, Image, Link2,
-  Code2, Quote, Save, FolderOpen, Bot, Maximize2, ZoomIn,
+  Code2, Quote, Maximize2, ZoomIn,
   ZoomOut, Minus, CheckSquare, Hash,
 } from 'lucide-react'
 import Fuse from 'fuse.js'
@@ -20,7 +20,7 @@ export default function CommandPalette() {
 
   const {
     showCommandPalette, toggleCommandPalette,
-    editor, toggleAIPanel, toggleFindReplace,
+    editor, toggleFindReplace,
     toggleFocusMode, setZoom, zoom,
   } = useEditorStore()
   const { newDocument } = useDocumentStore()
@@ -29,7 +29,6 @@ export default function CommandPalette() {
     // Document
     { id: 'new',         label: 'New Document',       shortcut: 'Ctrl+N',  category: 'Document', icon: 'FileText',   action: () => newDocument() },
     { id: 'find',        label: 'Find & Replace',     shortcut: 'Ctrl+H',  category: 'Document', icon: 'Search',     action: () => toggleFindReplace() },
-    { id: 'ai',          label: 'Open AI Assistant',  shortcut: 'Ctrl+⇧A', category: 'AI',       icon: 'Bot',        action: () => toggleAIPanel() },
     { id: 'focus',       label: 'Toggle Focus Mode',  shortcut: 'F11',     category: 'View',     icon: 'Maximize2',  action: () => toggleFocusMode() },
     { id: 'zoom-in',     label: 'Zoom In',            shortcut: 'Ctrl+=',  category: 'View',     icon: 'ZoomIn',     action: () => setZoom(Math.min(200, zoom + 10)) },
     { id: 'zoom-out',    label: 'Zoom Out',           shortcut: 'Ctrl+-',  category: 'View',     icon: 'ZoomOut',    action: () => setZoom(Math.max(50, zoom - 10)) },
@@ -64,7 +63,7 @@ export default function CommandPalette() {
       if (url) editor?.chain().focus().setImage({ src: url }).run()
     }},
     { id: 'clear-fmt',   label: 'Clear Formatting',   category: 'Format',   icon: 'FileText',    action: () => editor?.chain().focus().clearNodes().unsetAllMarks().run() },
-  ], [editor, zoom, newDocument, toggleAIPanel, toggleFindReplace, toggleFocusMode, setZoom])
+  ], [editor, zoom, newDocument, toggleFindReplace, toggleFocusMode, setZoom])
 
   const fuse = useMemo(() => new Fuse(commands, {
     keys: ['label', 'category', 'shortcut'],
@@ -109,8 +108,8 @@ export default function CommandPalette() {
   }, [filtered])
 
   const iconMap: Record<string, React.ElementType> = {
-    FileText, Bold, Italic, Underline, Code2, Quote, Save,
-    FolderOpen, Bot, Maximize2, ZoomIn, ZoomOut, Search,
+    FileText, Bold, Italic, Underline, Code2, Quote,
+    Maximize2, ZoomIn, ZoomOut, Search,
     List, ListOrdered, CheckSquare, AlignLeft, AlignCenter, AlignRight,
     Table, Image, Link2, Minus, Hash,
   }
