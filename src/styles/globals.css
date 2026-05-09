@@ -1,0 +1,314 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+:root {
+  --koppa-bg:      #080810;
+  --koppa-surface: #0d0d1a;
+  --koppa-panel:   #111120;
+  --koppa-border:  #1e1e38;
+  --koppa-neon:    #00d4ff;
+  --koppa-neon2:   #0066ff;
+  --koppa-purple:  #8b2fff;
+  --koppa-text:    #e0e4ff;
+  --koppa-muted:   #6b7ab5;
+  --editor-width:  820px;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--koppa-bg); }
+::-webkit-scrollbar-thumb { background: var(--koppa-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--koppa-muted); }
+
+/* Selection */
+::selection { background: rgba(0, 212, 255, 0.25); color: #fff; }
+
+/* ── Glassmorphism ──────────────────────────────────── */
+.glass {
+  background: rgba(13, 13, 26, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 212, 255, 0.12);
+}
+
+.glass-strong {
+  background: rgba(8, 8, 16, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.glass-hover:hover {
+  background: rgba(30, 30, 56, 0.8);
+  border-color: rgba(0, 212, 255, 0.3);
+}
+
+/* ── Neon effects ───────────────────────────────────── */
+.neon-text {
+  color: var(--koppa-neon);
+  text-shadow: 0 0 10px rgba(0,212,255,0.8), 0 0 30px rgba(0,212,255,0.4);
+}
+
+.neon-border {
+  border-color: var(--koppa-neon) !important;
+  box-shadow: 0 0 12px rgba(0,212,255,0.4), inset 0 0 12px rgba(0,212,255,0.05);
+}
+
+.neon-btn {
+  background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,102,255,0.15));
+  border: 1px solid rgba(0,212,255,0.4);
+  color: var(--koppa-neon);
+  transition: all 0.2s ease;
+}
+.neon-btn:hover {
+  background: linear-gradient(135deg, rgba(0,212,255,0.25), rgba(0,102,255,0.25));
+  box-shadow: 0 0 20px rgba(0,212,255,0.4);
+}
+.neon-btn:active { transform: scale(0.97); }
+
+/* ── Toolbar ────────────────────────────────────────── */
+.toolbar-btn {
+  @apply flex items-center justify-center w-8 h-8 rounded text-koppa-muted transition-all duration-150 cursor-pointer;
+}
+.toolbar-btn:hover {
+  @apply text-koppa-text bg-koppa-hover;
+}
+.toolbar-btn.active {
+  @apply text-koppa-neon bg-koppa-hover;
+  box-shadow: 0 0 8px rgba(0,212,255,0.3);
+}
+.toolbar-separator {
+  @apply w-px h-6 bg-koppa-border mx-1;
+}
+
+/* ── TipTap Editor ──────────────────────────────────── */
+.koppa-editor-wrap {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.koppa-page {
+  width: var(--editor-width);
+  min-height: 1100px;
+  background: #0f0f1e;
+  border-radius: 4px;
+  border: 1px solid rgba(0,212,255,0.08);
+  box-shadow: 0 4px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03);
+  padding: 80px 96px;
+  position: relative;
+}
+
+.ProseMirror {
+  outline: none;
+  min-height: 900px;
+  color: var(--koppa-text);
+  font-size: 15px;
+  line-height: 1.75;
+  caret-color: var(--koppa-neon);
+}
+
+.ProseMirror > * + * { margin-top: 0.75em; }
+
+.ProseMirror p { margin: 0 0 0.5em; }
+
+.ProseMirror h1 {
+  font-size: 2.25em;
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--koppa-neon);
+  text-shadow: 0 0 20px rgba(0,212,255,0.3);
+  margin: 1.2em 0 0.6em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid rgba(0,212,255,0.2);
+}
+.ProseMirror h2 {
+  font-size: 1.75em;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  color: #a0b4ff;
+  margin: 1.1em 0 0.5em;
+}
+.ProseMirror h3 {
+  font-size: 1.35em;
+  font-weight: 600;
+  color: #8b9eff;
+  margin: 1em 0 0.4em;
+}
+.ProseMirror h4, .ProseMirror h5, .ProseMirror h6 {
+  font-weight: 600;
+  color: #7b8eff;
+  margin: 0.8em 0 0.3em;
+}
+
+.ProseMirror strong { font-weight: 700; color: #fff; }
+.ProseMirror em { font-style: italic; color: #c0ccff; }
+.ProseMirror u { text-decoration: underline; text-decoration-color: var(--koppa-neon); }
+.ProseMirror s { text-decoration: line-through; color: var(--koppa-muted); }
+
+.ProseMirror code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88em;
+  background: rgba(0,212,255,0.08);
+  color: var(--koppa-cyan, #00ffee);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid rgba(0,212,255,0.15);
+}
+
+.ProseMirror pre {
+  background: #080810;
+  border: 1px solid rgba(0,212,255,0.15);
+  border-radius: 8px;
+  padding: 16px 20px;
+  overflow-x: auto;
+  position: relative;
+}
+.ProseMirror pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.9em;
+  color: #e0e4ff;
+}
+
+.ProseMirror blockquote {
+  border-left: 3px solid var(--koppa-neon);
+  padding-left: 1.2em;
+  margin: 1em 0;
+  color: var(--koppa-muted);
+  font-style: italic;
+  background: rgba(0,212,255,0.04);
+  border-radius: 0 6px 6px 0;
+  padding: 0.8em 1.2em;
+}
+
+.ProseMirror ul { list-style: none; padding-left: 1.5em; }
+.ProseMirror ul li { position: relative; margin: 0.3em 0; }
+.ProseMirror ul li::before {
+  content: '▸';
+  position: absolute;
+  left: -1.2em;
+  color: var(--koppa-neon);
+}
+.ProseMirror ol { padding-left: 1.8em; }
+.ProseMirror ol li { margin: 0.3em 0; }
+.ProseMirror ol li::marker { color: var(--koppa-neon); }
+
+/* Task list */
+.ProseMirror ul[data-type="taskList"] { padding-left: 0.5em; }
+.ProseMirror ul[data-type="taskList"] li { display: flex; align-items: flex-start; gap: 0.5em; }
+.ProseMirror ul[data-type="taskList"] li::before { display: none; }
+.ProseMirror ul[data-type="taskList"] li input[type="checkbox"] {
+  margin-top: 0.3em;
+  width: 14px; height: 14px;
+  accent-color: var(--koppa-neon);
+  flex-shrink: 0;
+}
+
+/* Tables */
+.ProseMirror table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  font-size: 0.93em;
+}
+.ProseMirror td, .ProseMirror th {
+  border: 1px solid var(--koppa-border);
+  padding: 8px 12px;
+  text-align: left;
+}
+.ProseMirror th {
+  background: rgba(0,212,255,0.08);
+  color: var(--koppa-neon);
+  font-weight: 600;
+}
+.ProseMirror tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+.ProseMirror .selectedCell { background: rgba(0,212,255,0.12) !important; }
+
+/* Images */
+.ProseMirror img {
+  max-width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--koppa-border);
+}
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 2px solid var(--koppa-neon);
+  box-shadow: 0 0 16px rgba(0,212,255,0.4);
+}
+
+/* Links */
+.ProseMirror a {
+  color: var(--koppa-neon);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.ProseMirror a:hover { opacity: 0.8; }
+
+/* Horizontal rule */
+.ProseMirror hr {
+  border: none;
+  border-top: 1px solid rgba(0,212,255,0.2);
+  margin: 1.5em 0;
+}
+
+/* Placeholder */
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: var(--koppa-muted);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Find highlight */
+.find-highlight {
+  background: rgba(255,170,0,0.3);
+  border-radius: 2px;
+}
+.find-highlight.current {
+  background: rgba(0,212,255,0.4);
+}
+
+/* ── Sidebar ────────────────────────────────────────── */
+.sidebar-item {
+  @apply flex items-center gap-2 px-3 py-2 rounded text-koppa-muted text-sm cursor-pointer transition-all duration-150;
+}
+.sidebar-item:hover { @apply text-koppa-text bg-koppa-hover; }
+.sidebar-item.active { @apply text-koppa-neon bg-koppa-hover; }
+
+/* ── Command Palette ────────────────────────────────── */
+.command-item {
+  @apply flex items-center gap-3 px-4 py-2.5 cursor-pointer transition-colors duration-100;
+}
+.command-item:hover, .command-item.selected {
+  @apply bg-koppa-hover;
+}
+
+/* ── Splash Screen ──────────────────────────────────── */
+.splash-grid {
+  background-image: var(--tw-gradient-to, linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px)),
+    linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── Focus Mode ─────────────────────────────────────── */
+.focus-mode .koppa-page {
+  border-color: transparent;
+  box-shadow: none;
+  background: transparent;
+}

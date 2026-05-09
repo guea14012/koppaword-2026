@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dist-electron/
+release/
+.env
+.env.local
+*.kwdoc
+*.log
+.DS_Store
+thumbs.db
